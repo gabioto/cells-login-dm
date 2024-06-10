@@ -64,11 +64,14 @@ export class CellsLoginDm extends LitElement {
 
   _parseLoginResponse(evt) {
     let rpta = JSON.parse(evt.response);
+    console.log('logindm', rpta.backendUserResponse.clientId);
     this.dispatchEvent(
       new CustomEvent('login-success', {
         composed: true,
-        detail: evt.getResponseHeader('tsec'),
-        clientId: rpta.backendUserResponse.clientId,
+        detail: {
+          tsec: evt.getResponseHeader('tsec'),
+          clientId: rpta.backendUserResponse.clientId,
+        },
       })
     );
   }
